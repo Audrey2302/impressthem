@@ -1,0 +1,133 @@
+/* ===========================================================
+   Reset de base
+   =========================================================== */
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.header-content {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 180px 10px 180px; 
+  font-family: "Montserrat", sans-serif;
+}
+
+.logo img {
+  display: block;
+
+}
+
+
+/* ===========================================================
+   Menu de navigation
+   =========================================================== */
+.nav .menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  
+  
+}
+
+.menu li {
+  position: relative;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #777;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* ===========================================================
+   Sous-menu (affichage au survol)
+   =========================================================== */
+.has-sub:hover .submenu {
+  display: block;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  list-style: none;
+}
+
+.submenu li {
+  margin: 5px 0;
+}
+
+/* ===========================================================
+   Panier
+   =========================================================== */
+
+.LogoCart{
+	display: flex;
+	align-items: flex-end;
+	gap: 25px;
+	
+}
+.logo a{
+	text-decoration: none;
+	padding-right: 15px;
+	color: #777;
+	font-weight: 600;
+	font-size: 18px;
+    
+}
+.cart {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  color: #777;
+  font-weight: 600;
+}
+
+/* ===========================================================
+   Burger menu (pour mobile)
+   =========================================================== */
+.burger {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: none;
+}
+
+.burger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #000;
+  margin: 4px 0;
+}
+
+/* ===========================================================
+   Styles responsives
+   =========================================================== */
+@media (max-width: 992px) {
+  /* Menu en colonne et cacher par défaut */
+  .nav .menu {
+    display: none;
+    flex-direction: column;
+  }
+
+  /* Affichage du burger menu */
+  .burger {
+    display: block;
+  }
+}
