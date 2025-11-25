@@ -1,0 +1,18 @@
+@use "abstracts/variables";
+@use "abstracts/mixins";
+
+@use "layout/header";
+@use "layout/carousel";
+
+@use "components/cart";
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

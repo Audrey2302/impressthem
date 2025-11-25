@@ -41,7 +41,7 @@ body {
     margin: 0 auto;
 }
 
-/*  Logo avec animation
+/*  Logo sans animation
 */
 .LogoNav {
     display: flex;
@@ -51,22 +51,9 @@ body {
 
 .logo {
     position: relative;
-    transition: transform 0.3s ease;
+    
 }
 
-.logo:hover {
-    transform: scale(1.05) rotate(-2deg);
-}
-
-.logo img {
-    display: block;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
-    transition: filter 0.3s ease;
-}
-
-.logo:hover img {
-    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15));
-}
 
 /*  Navigation */
 .nav .menu {

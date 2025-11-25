@@ -1,0 +1,325 @@
+.header {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 248, 250, 0.98));
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  border-bottom: 2px solid transparent;
+  -o-border-image: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0) 1;
+     border-image: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0) 1;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  animation: fadeInDown 0.6s ease;
+}
+.header.scrolled {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+}
+.header .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 20px 100px 20px 100px;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+.header .LogoNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+.header .nav .menu {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+}
+.header .nav .menu li {
+  position: relative;
+}
+.header .nav .menu > li > a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 8px 0;
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+.header .nav .menu > li > a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff6b9d, #c471f5);
+  transition: width 0.3s ease;
+}
+.header .nav .menu > li > a:hover::after {
+  width: 100%;
+}
+.header .nav .menu > li > a:hover {
+  color: #333;
+}
+.header .has-sub:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.header .submenu {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 15px);
+  left: -20px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 12px;
+  padding: 15px;
+  min-width: 200px;
+  list-style: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.header .submenu::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 30px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  transform: rotate(45deg);
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+.header .submenu li {
+  margin: 0;
+  padding: 0;
+}
+.header .submenu a {
+  display: block;
+  padding: 10px 15px;
+  color: #666;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.header .submenu a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, rgba(255, 107, 157, 0.1), rgba(196, 113, 245, 0.1));
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+.header .submenu a:hover {
+  color: #333;
+  transform: translateX(5px);
+}
+.header .submenu a:hover::before {
+  width: 100%;
+}
+.header .LogoCart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+.header .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.header .logo a {
+  text-decoration: none;
+  color: #666;
+  font-size: 20px;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s ease;
+}
+.header .logo a:hover {
+  color: #333;
+  background: rgba(255, 107, 157, 0.1);
+  transform: translateY(-2px);
+}
+.header .burger {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+}
+.header .burger span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.header .burger:hover span {
+  background: linear-gradient(90deg, #764ba2, #667eea);
+}
+@media (max-width: 1223px) {
+  .header .header-content {
+    padding: 15px 30px;
+  }
+  .header .nav .menu {
+    display: none;
+    flex-direction: column;
+  }
+  .header .burger {
+    display: flex;
+  }
+  .header .LogoNav {
+    gap: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .header .header-content {
+    padding: 15px 20px;
+  }
+  .header .LogoCart {
+    gap: 10px;
+  }
+  .header .logo a {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+  .header .cart {
+    padding: 10px 15px;
+  }
+  .header .cart span {
+    font-size: 0.75rem;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.carousel {
+  position: relative;
+  width: 100%;
+  max-height: 500px;
+  overflow: hidden;
+}
+.carousel .carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.carousel .carousel-item {
+  min-width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+.carousel .carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  padding: 0 15px;
+  cursor: pointer;
+  z-index: 10;
+}
+.carousel .carousel-control.prev {
+  left: 10px;
+}
+.carousel .carousel-control.next {
+  right: 10px;
+}
+.carousel .carousel-bullets {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+.carousel .carousel-bullets span {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.carousel .carousel-bullets span.active {
+  background: white;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+.cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+}
+.cart img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+.cart span {
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}/*# sourceMappingURL=main.css.map */
