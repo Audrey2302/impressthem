@@ -1,0 +1,361 @@
+/* ===========================================================
+   Footer Moderne
+   =========================================================== */
+
+.footer {
+  position: relative;
+  padding: 50px 0 0;
+  color: #e0e0e0;
+  background: $gris-fonce;
+  overflow: hidden;
+}
+.image{
+    text-align: center;
+}
+
+.footer-bg {
+  background-image: url("https://impressthem.fr/img/footer/background-1.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Effet de particules animées */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.containerFooter {
+  position: relative;
+  padding: 0 50px;
+}
+
+/* ===========================================================
+   Footer Top - Structure en colonnes
+   =========================================================== */
+
+.footer-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===========================================================
+   Footer About - Colonne principale
+   =========================================================== */
+
+.footer-about {
+  padding-right: 20px;
+}
+
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+  transform: scale(1.05);
+}
+
+.footer-logo img {
+  width: 160px;
+  filter: brightness(1.1);
+}
+
+.footer-text {
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: #b8b8b8;
+  font-size: 0.95rem;
+}
+
+/* Info de contact stylisée */
+.footer-info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-info li {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border-left: 3px solid rgb(70, 188, 198);
+    transition: all 0.3s ease;
+}
+
+.footer-info li:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateX(5px);
+    border-left-color: $bleu-fonce-impress;
+}
+
+.footer-info li i {
+    font-size: 18px;
+    color: $bleu-impress;
+    min-width: 20px;
+    margin-top: 2px;
+}
+
+.footer-info li div {
+    flex: 1;
+}
+
+.footer-info li span {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.footer-info li p {
+    margin: 0;
+    color: #b8b8b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.footer-info li a {
+    color: #b8b8b8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-info li a:hover {
+    color: $bleu-impress;
+}
+
+/* ===========================================================
+   Footer Columns - Liens
+   =========================================================== */
+
+.footer-col {
+    min-width: 0;
+}
+
+.footer-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #fff;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.footer-title::after {
+  content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    
+    background: $gradient-blueimpressthem;
+    border-radius: 2px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links li a {
+    color: #b8b8b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    padding: 5px 0;
+}
+
+.footer-links li a i {
+    font-size: 10px;
+    color: $bleu-impress;
+    transition: transform 0.3s ease;
+}
+
+.footer-links li a:hover {
+    color: #fff;
+    padding-left: 8px;
+}
+
+.footer-links li a:hover i {
+    transform: translateX(5px);
+}
+
+/* ===========================================================
+   Réseaux sociaux inline
+   =========================================================== */
+
+.footer-socials-inline {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.footer-socials-inline a { 
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #b8b8b8;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.footer-socials-inline a:hover {
+    background: $gradient-blueimpressthem;
+    border-color: transparent;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* ===========================================================
+   Footer Bottom
+   =========================================================== */
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+    gap: 20px;
+}
+
+.footer-copy {
+    font-size: 0.9rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-copy i {
+    font-size: 14px;
+}
+
+
+
+
+
+/* ===========================================================
+   Responsive
+   =========================================================== */
+
+@media (max-width: 1024px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-about {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 60px 0 0;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+
+  .footer-about {
+    padding-right: 0;
+  }
+
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    padding: 25px 0;
+  }
+
+  .footer-payment {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 0 0;
+  }
+
+  .footer-info li {
+    padding: 12px;
+  }
+
+  .footer-info li i {
+    font-size: 16px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form button {
+    padding: 12px;
+  }
+
+  .footer-socials-inline a {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+}
+
+/* ===========================================================
+   Animation d'apparition
+   =========================================================== */
+
+.footer {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

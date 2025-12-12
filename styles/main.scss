@@ -1,10 +1,21 @@
-@use "abstracts/variables";
-@use "abstracts/mixins";
+@import "./abstracts/mixins";
+@import "./abstracts/variables";
 
-@use "layout/header";
-@use "layout/carousel";
 
-@use "components/cart";
+@import "./layout/header";
+@import "./layout/carousel";
+@import "./layout/cards";
+@import "./layout/nosValeurs";
+@import "./layout/temoignage";
+@import "./layout/footer";
+
+
+
+.container  {
+  margin: 0 auto;
+  width: 100%;
+  padding: 0px 120px 0px 120px;
+}
 
 body {
   font-family: "Montserrat", sans-serif;

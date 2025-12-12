@@ -1,0 +1,75 @@
+.owl-carousel {
+  @include flex-center;
+  gap: 30px;
+  padding: 20px;
+}
+
+
+.testimonials {
+  padding: 80px 0;
+  text-align: center;
+
+  .testi-title {
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .testi-subtitle {
+    color: $gris;
+    margin-bottom: 60px;
+  }
+
+  .testimonial-item {
+    text-align: center;
+  }
+
+  /* CARD — le cadre gris clair comme ta maquette */
+  .testi-card {
+    background: #f3f5f9;
+    border: 6px solid #edf0f5;
+    padding: 40px;
+    margin-bottom: 25px;
+
+    blockquote {
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #6f7880;
+    }
+  }
+
+  /* Auteur */
+  .testi-author {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    strong {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    span {
+      color: $gris;
+    }
+  }
+
+  /* Dots Owl Carousel (comme sur ton visuel) */
+  .owl-dots {
+    margin-top: 20px;
+
+    .owl-dot span {
+      width: 10px;
+      height: 10px;
+      background: #ccc !important;
+      transition: 0.3s;
+    }
+
+    .owl-dot.active span {
+      background: #32c0c6 !important; // ton petit point bleu/vert
+      transform: scale(1.2);
+    }
+  }
+}
+

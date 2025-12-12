@@ -1,0 +1,81 @@
+.cards {
+  padding: 60px 0;
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .card-box {
+     max-width: 400px; // Taille contrôlée
+    background: #fff;
+    border-radius: 14px;
+   // box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+    text-align: center;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, .12);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+
+    .card-img {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 14px 14px 0 0;
+
+      img {
+        width: 100%;
+        height: 250px; // Comme ton inline
+        object-fit: cover;
+        transition: transform .3s ease;
+      }
+
+      &:hover img {
+        transform: scale(1.05);
+      }
+    }
+
+    .card-info {
+      padding: 20px;
+
+      h2 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 1rem;
+        color: #444;
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+
+      .card-btn {
+        background: transparent;
+        border: 2px solid $bleu-impress;
+        border-radius: 30px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: .9rem;
+        transition: background .25s ease, color .25s ease;
+
+        &:hover {
+          background: $bleu-impress;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
