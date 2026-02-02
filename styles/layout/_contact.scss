@@ -1,0 +1,75 @@
+/* ---------- Form ---------- */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ---------- Rows (2 colonnes) ---------- */
+
+.contact-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* ---------- Group ---------- */
+
+.contact-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- Fields ---------- */
+
+.contact-field {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    font-size: 0.95rem;
+    transition: 0.25s;
+
+    &:focus {
+        background: #fff;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+        outline: none;
+    }
+}
+
+textarea.contact-field {
+    resize: vertical;
+}
+
+/* ---------- Labels ---------- */
+
+.contact-group label {
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* ---------- Captcha ---------- */
+
+.contact-captcha img {
+    margin: 10px 0;
+    height: 42px;
+    border-radius: 6px;
+}
+
+/* ---------- Actions ---------- */
+
+.contact-actions {
+    text-align: center;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+    .contact-row {
+        grid-template-columns: 1fr;
+    }
+}

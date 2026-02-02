@@ -1,0 +1,47 @@
+.category-hero {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+
+.category-hero-bg {
+    position: absolute;
+    inset: 0;          /* 🔥 clé magique */
+}
+
+
+.category-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block; /* évite les micro débordements */
+}
+
+.category-hero-content {
+    position: relative; /* important */
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.category-hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.category-hero-content p {
+    max-width: 700px;
+    font-size: 16px;
+    color: #555;
+}
+

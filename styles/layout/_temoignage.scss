@@ -1,75 +1,83 @@
-.owl-carousel {
-  @include flex-center;
-  gap: 30px;
-  padding: 20px;
-}
-
-
+/* SECTION */
 .testimonials {
   padding: 80px 0;
   text-align: center;
+}
 
-  .testi-title {
-    font-size: 34px;
-    font-weight: 800;
-    margin-bottom: 10px;
-  }
+/* On tue la mega card Mariages.net */
+.weddingwireWidget {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  max-width: none !important;
+  margin-top: 50px;
+}
 
-  .testi-subtitle {
-    color: $gris;
-    margin-bottom: 60px;
-  }
+/* Header (note + étoiles) */
+.weddingwireWidget__header {
+  margin-bottom: 40px;
+}
 
-  .testimonial-item {
-    text-align: center;
-  }
+/* CONTENEUR DES AVIS */
+.weddingwireWidget > div:not(.weddingwireWidget__header):not(.weddingwireWidget__footer) {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
 
-  /* CARD — le cadre gris clair comme ta maquette */
-  .testi-card {
-    background: #f3f5f9;
-    border: 6px solid #edf0f5;
-    padding: 40px;
-    margin-bottom: 25px;
-
-    blockquote {
-      font-style: italic;
-      font-size: 16px;
-      line-height: 1.8;
-      color: #6f7880;
-    }
-  }
-
-  /* Auteur */
-  .testi-author {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    strong {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    span {
-      color: $gris;
-    }
-  }
-
-  /* Dots Owl Carousel (comme sur ton visuel) */
-  .owl-dots {
-    margin-top: 20px;
-
-    .owl-dot span {
-      width: 10px;
-      height: 10px;
-      background: #ccc !important;
-      transition: 0.3s;
-    }
-
-    .owl-dot.active span {
-      background: #32c0c6 !important; // ton petit point bleu/vert
-      transform: scale(1.2);
-    }
+/* DESKTOP : 3 AVIS EN LIGNE */
+@media (min-width: 768px) {
+  .weddingwireWidget > div:not(.weddingwireWidget__header):not(.weddingwireWidget__footer) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
   }
 }
 
+
+/* CARD AVIS */
+.weddingWireWidgetReview {
+  background: #f8f8f8;
+  padding: 30px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header avis */
+.weddingWireWidgetReview__header {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Avatar */
+.weddingWireWidgetReview__avatar img,
+.avatar-generic {
+  border-radius: 50%;
+}
+
+/* Nom + date */
+.weddingWireWidgetReview__user {
+  font-size: 14px;
+}
+
+/* Titre avis */
+.weddingWireWidgetReview__title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* Texte */
+.weddingWireWidgetReview__post {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6f7880;
+  margin-top: auto;
+}
+
+/* Footer */
+.weddingwireWidget__footer {
+  margin-top: 40px;
+}

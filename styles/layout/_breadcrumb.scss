@@ -1,0 +1,35 @@
+/* =========================
+   BREADCRUMB
+========================= */
+
+.breadcrumb {
+    background: #f4f6f8;
+    padding: 14px 0;
+    font-size: 0.85em;
+}
+
+.breadcrumb .container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+}
+
+.breadcrumb a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+}
+
+
+
+.breadcrumb span {
+    color: #999;
+}
+
+/* Le dernier élément (page active) */
+/*.breadcrumb span:last-child {
+    color: #000;
+    font-weight: 500;
+}*/

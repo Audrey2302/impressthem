@@ -1,0 +1,88 @@
+.themes {
+  background: #1f1f1f;
+  padding: 60px 0;
+  margin-bottom: 50px;
+  margin-top: 60px;
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 30px;
+  }
+}
+
+/* ===== CARD ===== */
+.theme-card {
+  background: transparent;
+  text-align: center;
+  position: relative;
+
+  a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+  }
+
+  img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+  }
+
+  h3 {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== HOVER ===== */
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+
+    .theme-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ===== OVERLAY ACTION ===== */
+.theme-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.theme-btn {
+  background: #111;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #2388ed;
+  }
+}

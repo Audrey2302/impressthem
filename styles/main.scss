@@ -8,22 +8,36 @@
 @import "./layout/nosValeurs";
 @import "./layout/temoignage";
 @import "./layout/footer";
+@import "./layout/themes";
+@import "./layout/breadcrumb";
+@import "./layout/descriptif";
+@import "./layout/categorie_carrousel";
+@import "./layout/contact";
 
 
 
+h2 {
+  font-size: 1.8 rem !important;
+}
 .container  {
   margin: 0 auto;
   width: 100%;
-  padding: 0px 120px 0px 120px;
+  padding: 0px 200px 0px 200px;
 }
 
 body {
   font-family: "Montserrat", sans-serif;
   font-size: 13px;
+  margin: 0;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
+}
+
+html {
+    overflow-y: scroll;
 }
