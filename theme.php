@@ -11,19 +11,6 @@ if (!$categorieId) {
     die('Catégorie manquante 😅');
 }
 
-/* =========================
-   HEADER : catégories + types
-========================= */
-$stmt = $pdo->query("SELECT * FROM categories ORDER BY id ASC");
-$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$stmt = $pdo->query("SELECT * FROM types ORDER BY id ASC");
-$types = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$typesParCategorie = [];
-foreach ($types as $type) {
-    $typesParCategorie[$type['categorie_id']][] = $type;
-}
 
 // =========================
 // BREADCRUMB LOGIQUE

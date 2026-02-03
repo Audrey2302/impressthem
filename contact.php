@@ -5,60 +5,7 @@
 // → il crée la variable $pdo (connexion PDO à MySQL)
 require_once __DIR__ . '/config/db.php';
 
-/* =========================
-   DONNÉES COMMUNES AU HEADER
-   (menus catégories + types)
-========================= */
 
-// 1️⃣ On récupère TOUTES les catégories depuis la base
-$stmt = $pdo->query("SELECT * FROM categories ORDER BY id ASC");
-
-// On transforme le résultat SQL en tableau PHP
-$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Exemple :
-// [
-//   ['id' => 1, 'titre' => 'Mariage'],
-//   ['id' => 2, 'titre' => 'Anniversaire']
-// ]
-
-
-// 2️⃣ On récupère TOUS les types depuis la base
-$stmt = $pdo->query("SELECT * FROM types ORDER BY id ASC");
-
-// On transforme le résultat SQL en tableau PHP
-$types = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Exemple :
-// [
-//   ['id' => 1, 'nom' => 'Faire-part', 'categorie_id' => 1],
-//   ['id' => 2, 'nom' => 'Carte', 'categorie_id' => 1]
-// ]
-
-
-// 3️⃣ On regroupe les types par catégorie
-$typesParCategorie = [];
-
-// On parcourt chaque type
-foreach ($types as $type) {
-
-    // On classe chaque type dans la bonne catégorie
-    // clé = categorie_id
-    $typesParCategorie[$type['categorie_id']][] = $type;
-}
-
-/*
-Résultat final dans $typesParCategorie :
-
-[
-  1 => [ // catégorie ID 1
-        ['id' => 1, 'nom' => 'Faire-part', 'categorie_id' => 1],
-        ['id' => 2, 'nom' => 'Carte', 'categorie_id' => 1]
-       ],
-  2 => [ // catégorie ID 2
-        ['id' => 3, 'nom' => 'Invitation', 'categorie_id' => 2]
-       ]
-]
-
-*/
 ?>
 
 <!DOCTYPE html>
