@@ -12,51 +12,6 @@ if (!$categorieId) {
 }
 
 
-// =========================
-// BREADCRUMB LOGIQUE
-// =========================
-
-$breadcrumb = [];
-
-// 👉 Catégorie
-$stmt = $pdo->prepare("
-    SELECT titre, image_url, carrousel
-    FROM categories
-    WHERE id = ?
-    LIMIT 1
-");
-$stmt->execute([$categorieId]);
-$categorieActuelle = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if ($categorieActuelle) {
-    $breadcrumb[] = [
-        'label' => $categorieActuelle['titre'],
-        'url' => 'theme.php?categorie_id=' . $categorieId
-    ];
-}
-
-
-
-// 👉 Type (si présent)
-$typeActuel = null;
-
-// 👉 Type (si présent)
-if ($typeId) {
-    $stmt = $pdo->prepare("
-        SELECT nom, titre, texte
-        FROM types
-        WHERE id = ?
-        LIMIT 1
-    ");
-    $stmt->execute([$typeId]);
-    $typeActuel = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($typeActuel) {
-        $breadcrumb[] = [
-            'label' => $typeActuel['nom']
-        ];
-    }
-}
 
 
 
@@ -67,26 +22,41 @@ if ($typeId) {
 // CAS 1 : clic sur une catégorie → afficher les TYPES
 if (!$typeId) {
     $stmt = $pdo->prepare("
-        SELECT id, nom, image_url
-        FROM types
-        WHERE categorie_id = ?
-        ORDER BY id ASC
+        SELECT 
+            t.ID,
+            t.LIBELLE,
+            NULL as VIGNETTE
+        FROM types t
+        INNER JOIN categorie_type ct ON ct.TYPE = t.ID
+        WHERE ct.CATEGORIE = ?
+        ORDER BY t.LIBELLE ASC
     ");
     $stmt->execute([$categorieId]);
     $typesAffiches = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
 // CAS 2 : clic sur catégorie + type → afficher les THÉMATIQUES
 if ($typeId) {
     $stmt = $pdo->prepare("
-        SELECT nom, image_url
-        FROM thematiques
-        WHERE type_id = ?
-        ORDER BY nom ASC
+        SELECT DISTINCT
+            th.ID,
+            th.LIBELLE,
+            th.VIGNETTE
+        FROM themes th
+        INNER JOIN categorie_type_thematique ctt 
+            ON ctt.THEME = th.ID
+        INNER JOIN categorie_type ct
+            ON ct.ID = ctt.TYPE
+        WHERE ct.CATEGORIE = ?
+        AND ct.TYPE = ?
+        ORDER BY th.LIBELLE ASC
     ");
-    $stmt->execute([$categorieId]);
+    $stmt->execute([$categorieId, $typeId]);
     $thematiques = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 ?>
 
 
@@ -100,10 +70,13 @@ if ($typeId) {
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
-    
+
+
+<body class="page-theme">
+
 <!-- ================= HEADER ================= -->
 <?php require_once __DIR__ . '/partials/header.php'; ?>
+
 <!-- ================= breadcrumb ================= -->
 <?php require_once __DIR__ . '/partials/breadcrumb.php'; ?>
 <!-- ================= descriptif ================= -->
@@ -123,10 +96,10 @@ if ($typeId) {
             <?php foreach ($typesAffiches as $type): ?>
                 <div class="col-md-4 mb-4">
                     <div class="theme-card">
-                        <a href="theme.php?categorie_id=<?= $categorieId ?>&type_id=<?= $type['id'] ?>">
-                            <img src="<?= htmlspecialchars($type['image_url']) ?>" alt="<?= htmlspecialchars($type['nom']) ?>">
+                        <a href="theme.php?categorie_id=<?= $categorieId ?>&type_id=<?= $type['ID'] ?>">
+                            <img src="<?= htmlspecialchars($type['VIGNETTE']) ?>" alt="<?= htmlspecialchars($type['LIBELLE']) ?>">
 
-                            <h3><?= htmlspecialchars($type['nom']) ?></h3>
+                            <h3><?= htmlspecialchars($type['LIBELLE']) ?></h3>
                         </a>
                     </div>
                 </div>
@@ -142,17 +115,17 @@ if ($typeId) {
 <section class="themes">
     <div class="container">
         <div class="row">
-            <?php foreach ($thematiques as $theme): ?>               
+             <?php foreach ($thematiques as $theme): ?>               
                 <div class="col-md-4 mb-4">   
                     <div class="theme-card">
-                        <a href="#">
-                            <img src="<?= htmlspecialchars($theme['image_url']) ?>" alt="<?= htmlspecialchars($theme['nom']) ?>">
+                        <a href="produits.php?categorie_id=<?= $categorieId ?>&type_id=<?= $typeId ?>&thematique_id=<?= $theme['ID'] ?>">                          
+                            <img src="<?= htmlspecialchars($theme['VIGNETTE']) ?>" alt="<?= htmlspecialchars($theme['LIBELLE']) ?>">
                             <div class="theme-overlay">
                                 <span class="theme-btn">
                                     Choisir cette thématique <i class="fas fa-angle-right"></i>
                                 </span>
                             </div>
-                            <h3><?= htmlspecialchars($theme['nom']) ?></h3>
+                            <h3><?= htmlspecialchars($theme['LIBELLE']) ?></h3>
                         </a>
                     </div>
                 </div>

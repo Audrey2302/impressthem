@@ -1,58 +1,92 @@
 <?php
-/* =========================
-   DONNÉES COMMUNES AU HEADER
-   (menus catégories + types)
-========================= */
-
-// 1️⃣ On récupère TOUTES les catégories depuis la base
-$stmt = $pdo->query("SELECT * FROM categories ORDER BY id ASC");
-
-// On transforme le résultat SQL en tableau PHP
-$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Exemple :
-// [
-//   ['id' => 1, 'titre' => 'Mariage'],
-//   ['id' => 2, 'titre' => 'Anniversaire']
-// ]
-
-
-// 2️⃣ On récupère TOUS les types depuis la base
-$stmt = $pdo->query("SELECT * FROM types ORDER BY id ASC");
-
-// On transforme le résultat SQL en tableau PHP
-$types = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Exemple :
-// [
-//   ['id' => 1, 'nom' => 'Faire-part', 'categorie_id' => 1],
-//   ['id' => 2, 'nom' => 'Carte', 'categorie_id' => 1]
-// ]
-
-
-// 3️⃣ On regroupe les types par catégorie
-$typesParCategorie = [];
-
-// On parcourt chaque type
-foreach ($types as $type) {
-
-    // On classe chaque type dans la bonne catégorie
-    // clé = categorie_id
-    $typesParCategorie[$type['categorie_id']][] = $type;
+// ==============================
+// SESSION
+// ==============================
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
+
+<?php
+$firstname = '';
+
+if ($isLoggedIn) {
+    // On récupère le prénom depuis la table users
+    $stmt = $pdo->prepare("SELECT firstname FROM users WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $headerUser = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($headerUser) {
+        $firstname = htmlspecialchars($headerUser['firstname']); // sécurité XSS
+    }
+}
+?>
+
+
+
+
+
+<?php
+/* =====================================================
+   HEADER - DONNÉES POUR LE MENU
+   Logique :
+   Catégorie → Types disponibles (via categorie_type)
+===================================================== */
+
 /*
-Résultat final dans $typesParCategorie :
-
-[
-  1 => [ // catégorie ID 1
-        ['id' => 1, 'nom' => 'Faire-part', 'categorie_id' => 1],
-        ['id' => 2, 'nom' => 'Carte', 'categorie_id' => 1]
-       ],
-  2 => [ // catégorie ID 2
-        ['id' => 3, 'nom' => 'Invitation', 'categorie_id' => 2]
-       ]
-]
-
+1️⃣ On récupère toutes les catégories
+👉 ex : Mariage, Naissance, Anniversaire
 */
+
+$stmt = $pdo->query("
+    SELECT ID, LIBELLE
+    FROM categories
+    ORDER BY ID ASC
+");
+$headercategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+/*
+2️⃣ On récupère les types DISPONIBLES par catégorie
+👉 on passe par categorie_type (table intermédiaire)
+👉 évite les doublons et respecte la vraie logique
+*/
+$stmt = $pdo->query("
+    SELECT
+        c.ID AS categorie_id,
+        c.LIBELLE AS categorie_titre,
+        t.ID AS type_id,
+        t.LIBELLE AS type_nom
+    FROM categories c
+    JOIN categorie_type ct ON ct.CATEGORIE = c.ID
+    JOIN types t ON t.ID = ct.TYPE
+    ORDER BY c.ID, t.LIBELLE
+");
+
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+/*
+3️⃣ On range les données proprement pour le menu
+👉 tableau final :
+[
+  categorie_id => [
+      'titre' => 'Mariage',
+      'types' => [
+          ['id' => 1, 'nom' => 'Faire-part'],
+          ['id' => 2, 'nom' => 'Menu']
+      ]
+  ]
+]
+*/
+$menu = [];
+
+foreach ($rows as $row) {
+    $menu[$row['categorie_id']]['titre'] = $row['categorie_titre'];
+    $menu[$row['categorie_id']]['types'][] = [
+        'id' => $row['type_id'],
+        'nom' => $row['type_nom']
+    ];
+}
 ?>
 
 
@@ -60,62 +94,97 @@ Résultat final dans $typesParCategorie :
 <!--         HEADER          -->
 <!--                         -->
 <header id="header" class="header">
-    <div class="container header-content">
-        <div class="LogoNav">
-            
-                <img src="https://impressthem.fr/images/logo.png" alt="LOGO" width="110" height="110">
-            
-            
-            <nav class="nav">
+    
+<div class="Bonjour">            <!-- Icônes -->
+         <?php if ($isLoggedIn && $firstname): ?>
+            <div class="welcome-message">
+                Bonjour <span class="user-name"><?= $firstname ?></span> !
+            </div>
+        <?php endif; ?></div>
 
+    <div class="container header-content">
+
+
+
+        
+        <div class="LogoNav">
+
+            <img src="https://impressthem.fr/images/logo.png" alt="LOGO" width="110" height="110">
+
+            <nav class="nav">
                 <ul class="menu">
                     <li><a href="index.php">Accueil</a></li>
 
-                    <?php foreach ($categories as $categorie): ?>
+                   <?php foreach ($menu as $menuCategorieId => $headercategories): ?>
+
                         <li class="has-sub">
-                            <a href="theme.php?categorie_id=<?= $categorie['id'] ?>">
-                                <?= htmlspecialchars($categorie['titre']) ?>
+                            <!-- Lien catégorie -->
+                            <a href="theme.php?categorie_id=<?= $menuCategorieId ?>">
+                                <?= htmlspecialchars($headercategories['titre']) ?>
                             </a>
 
-                            <?php if (!empty($typesParCategorie[$categorie['id']])): ?>
+                            <!-- Sous-menu des types -->
+                            <?php if (!empty($headercategories['types'])): ?>
                                 <ul class="submenu">
-                                    <?php foreach ($typesParCategorie[$categorie['id']] as $type): ?>
+                                    <?php foreach ($headercategories['types'] as $type): ?>
                                         <li>
-                                            <a href="theme.php?categorie_id=<?= $categorie['id'] ?>&type_id=<?= $type['id'] ?>">
+                                            <a href="theme.php?categorie_id=<?= $menuCategorieId ?>&type_id=<?= $type['id'] ?>">
                                                 <?= htmlspecialchars($type['nom']) ?>
                                             </a>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
+
                         </li>
                     <?php endforeach; ?>
                 </ul>
-
-
             </nav>
         </div>
 
-        <div class="LogoCart">  
+
+
+        <div class="LogoCart">
             <div class="logo">
-                <a href="contact.php" title="Contact"><i class="far fa-comment-alt"></i></a>
-                <a href="connexion.php" title="Login"><i class="far fa-user"></i></a>
-                
+                <a href="contact.php"><i class="far fa-comment-alt"></i></a>
+                    <?php if ($isLoggedIn): ?>
+
+                    <!-- Utilisateur connecté -->
+                    <a href="mon-compte.php" class="user-connected">
+                        <i class="fas fa-user"></i>
+                        <span class="status-dot"></span>
+                    </a>
+
+                    <a href="partials/deconnexion.php" class="logout">
+                        <i class="fas fa-right-from-bracket"></i>
+                    </a>
+
+                <?php else: ?>
+
+                    <!-- Utilisateur NON connecté -->
+                    <a href="connexion.php">
+                        <i class="far fa-user"></i>
+                    </a>
+
+                <?php endif; ?>
+
+
+
+
             </div>
-            
+
             <div class="cart">
                 <img src="https://impressthem.fr/img/icons/cart-bag.svg" alt="Panier">
                 <span>0,00 € TTC</span>
             </div>
-        </div> 
+        </div>
 
-        <button class="burger" data-toggle="collapse" data-target="nav">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button class="burger">
+            <span></span><span></span><span></span>
         </button>
     </div>
 </header>
+
 <!-- MENU MOBILE -->
 <div class="mobile-nav-overlay"></div>
 
@@ -123,37 +192,34 @@ Résultat final dans $typesParCategorie :
     <button class="mobile-close">&times;</button>
 
     <ul class="mobile-menu">
-        <li>
-            <a href="index.php">Accueil</a>
-        </li>
+        <li><a href="index.php">Accueil</a></li>
 
-        <?php foreach ($categories as $categorie): ?>
+        <?php foreach ($menu as $menuCategorieId => $headercategories): ?>
+
             <li class="mobile-has-sub">
                 <button class="mobile-category-toggle">
-                    <?= htmlspecialchars($categorie['titre']) ?>
+                    <?= htmlspecialchars($headercategories['titre']) ?>
                     <span class="arrow">▾</span>
                 </button>
 
-                <?php if (!empty($typesParCategorie[$categorie['id']])): ?>
-                    <ul class="mobile-submenu">
-                        <?php foreach ($typesParCategorie[$categorie['id']] as $type): ?>
-                            <li>
-                                <a href="theme.php?categorie_id=<?= $categorie['id'] ?>&type_id=<?= $type['id'] ?>">
-                                    <?= htmlspecialchars($type['nom']) ?>
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <ul class="mobile-submenu">
+                <ul class="mobile-submenu">
+                    <?php foreach ($headercategories['types'] as $type): ?>
                         <li>
-                            <a href="theme.php?categorie_id=<?= $categorie['id'] ?>">
-                                Voir la catégorie
+                            <a href="theme.php?categorie_id=<?= $menuCategorieId ?>&type_id=<?= $type['id'] ?>">
+                                <?= htmlspecialchars($type['nom']) ?>
                             </a>
                         </li>
-                    </ul>
-                <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
             </li>
         <?php endforeach; ?>
+        <?php if ($isLoggedIn): ?>
+            <li><a href="mon-compte.php">Mon compte</a></li>
+            <li><a href="deconnexion.php">Déconnexion</a></li>
+        <?php else: ?>
+            <li><a href="connexion.php">Connexion</a></li>
+        <?php endif; ?>
+
     </ul>
 </nav>
+

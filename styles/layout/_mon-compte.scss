@@ -1,0 +1,103 @@
+.account {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+
+  &__container {
+    width: 100%;
+    max-width: 700px;
+    background: $white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 0.3rem;
+  }
+
+  &__subtitle {
+    text-align: center;
+    color: $gris;
+    margin-bottom: 2rem;
+  }
+
+  &__card {
+    background: $gradient-blueimpressthem;
+    border-radius: 10px;
+    padding: 2rem;
+    color: $white;
+
+    h2 {
+      margin-bottom: 1.2rem;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__actions {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    border-radius: 30px;
+    text-decoration: none;
+    color: $white;
+    background: $gradient-roseviolet;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    &--danger {
+      background: $rose-impress;
+    }
+  }
+}
+
+
+.account__tabs {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.account__tab {
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: #f1f3f7;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: 0.2s;
+
+    &:hover {
+        background: #e2e6ec;
+    }
+
+    &.active {
+        background: #ff5c5c;
+        color: #fff;
+    }
+}

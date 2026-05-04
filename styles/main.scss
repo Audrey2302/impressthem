@@ -14,6 +14,11 @@
 @import "./layout/categorie_carrousel";
 @import "./layout/contact";
 @import "./layout/connexion";
+@import "./layout/mon-compte";
+@import "./layout/produits";
+@import "./layout/article";
+@import "./layout/_carnet-adresse";
+
 
 
 
@@ -23,7 +28,7 @@ h2 {
 .container  {
   margin: 0 auto;
   width: 100%;
-  padding: 0px 200px 0px 200px;
+  padding: 0px 150px 0px 150px;
 }
 
 body {
@@ -41,4 +46,9 @@ body {
 
 html {
     overflow-y: scroll;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

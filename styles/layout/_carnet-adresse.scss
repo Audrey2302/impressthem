@@ -1,0 +1,82 @@
+.guestbook {
+    padding: 40px;
+
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    &-container {
+        display: flex;
+        gap: 20px;
+    }
+
+    &-list {
+        width: 30%;
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 10px;
+        max-height: 600px;
+        overflow-y: auto;
+    }
+
+    &-detail {
+        width: 70%;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+    }
+}
+
+.guest-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+
+    &:hover {
+        background: #eee;
+    }
+}
+
+.status {
+    float: right;
+    font-size: 12px;
+
+    &.confirme { color: green; }
+    &.en_attente { color: orange; }
+    &.refuse { color: red; }
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+
+    input {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+}
+
+.btn-add {
+    background: #ff5c5c;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}

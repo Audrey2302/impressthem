@@ -410,3 +410,42 @@
     color: #666;
     padding: 10px 0;
 }
+
+
+// --------------------------------------------------
+//----------Message de connection BONJOUR <FIRSTNAME> 
+//---------------------------------------------------
+
+.user-connected {
+    position: relative;
+    display: inline-block;
+}
+
+.status-dot {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #00c853;
+    border-radius: 50%;
+}
+
+
+/* Barre de bienvenue en haut du header */
+.welcome-message {
+    text-align: center;           /* Centré horizontalement */
+   
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #424141;
+    background: $bleu-clair;   /* Fond doux pour bien détacher */
+    
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0; /* Séparation discrète */
+}
+
+/* Le prénom en couleur et gras */
+.welcome-message .user-name {
+    font-weight: 700;
+}

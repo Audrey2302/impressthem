@@ -1,4 +1,5 @@
 <?php
+$thematiqueId = $_GET['thematique_id'] ?? null;
 // =========================
 // BREADCRUMB LOGIQUE
 // =========================
@@ -7,9 +8,9 @@ $breadcrumb = [];
 
 // 👉 Catégorie
 $stmt = $pdo->prepare("
-    SELECT titre, image_url, carrousel
+    SELECT LIBELLE, VIGNETTE, CARROUSEL
     FROM categories
-    WHERE id = ?
+    WHERE ID = ?
     LIMIT 1
 ");
 $stmt->execute([$categorieId]);
@@ -17,7 +18,7 @@ $categorieActuelle = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($categorieActuelle) {
     $breadcrumb[] = [
-        'label' => $categorieActuelle['titre'],
+        'label' => $categorieActuelle['LIBELLE'],
         'url' => 'theme.php?categorie_id=' . $categorieId
     ];
 }
@@ -25,17 +26,20 @@ if ($categorieActuelle) {
 
 
 // 👉 Type (si présent)
-$typeActuel = null;
-
 // 👉 Type (si présent)
 if ($typeId) {
     $stmt = $pdo->prepare("
-        SELECT nom, titre, texte
-        FROM types
-        WHERE id = ?
+        SELECT 
+            ct.LIBELLE,
+            ct.DESCRIPTION,
+            t.LIBELLE as nom
+        FROM categorie_type ct
+        JOIN types t ON t.ID = ct.TYPE
+        WHERE ct.CATEGORIE = ?
+        AND ct.TYPE = ?
         LIMIT 1
     ");
-    $stmt->execute([$typeId]);
+    $stmt->execute([$categorieId, $typeId]);
     $typeActuel = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($typeActuel) {
@@ -45,8 +49,28 @@ if ($typeId) {
     }
 }
 
-?>
+// 👉 Thématique (si présente)
+if ($thematiqueId) {
+    $stmt = $pdo->prepare("
+        SELECT LIBELLE
+        FROM themes
+        WHERE ID = ?
+        LIMIT 1
+    ");
+    $stmt->execute([$thematiqueId]);
+    $themeActuel = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    if ($themeActuel) {
+        $breadcrumb[] = [
+            'label' => $themeActuel['nom']
+        ];
+    }
+}
+
+
+
+
+?>
 
 
 <nav class="breadcrumb">
